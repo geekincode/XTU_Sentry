@@ -1,0 +1,12 @@
+/pcd2pgm:
+  ros__parameters:
+    file_directory: /home/rm/sentry_nav_V3.0/src/FAST_LIO/PCD/
+    file_name: scans_20250424_111031
+    flag_pass_through: true
+    map_resolution: 0.05
+    map_topic_name: map
+    thre_radius: 0.5
+    thre_z_max: 5.1
+    thre_z_min: 5.0
+    thres_point_count: 10
+    use_sim_time: false

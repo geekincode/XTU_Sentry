@@ -1,0 +1,30 @@
+[submodule "src/autoaim/rm_auto_aim"]
+	path = src/autoaim/rm_auto_aim
+	url = https://github.com/FaterYU/rm_auto_aim.git
+[submodule "src/autoaim/rm_auto_record"]
+	path = src/autoaim/rm_auto_record
+	url = https://github.com/FaterYU/rm_auto_record.git
+[submodule "src/autoaim/rm_buff"]
+	path = src/autoaim/rm_buff
+	url = https://github.com/FaterYU/rm_buff.git
+[submodule "src/autoaim/rm_gimbal_description"]
+	path = src/autoaim/rm_gimbal_description
+	url = https://github.com/FaterYU/rm_gimbal_description.git
+[submodule "src/autoaim/rm_serial_driver"]
+	path = src/autoaim/rm_serial_driver
+	url = https://github.com/FaterYU/rm_serial_driver.git
+[submodule "src/autoaim/ros2_hik_camera"]
+	path = src/autoaim/ros2_hik_camera
+	url = https://github.com/FaterYU/ros2_hik_camera.git
+[submodule "src/navigation/FAST_LIO"]
+	path = src/navigation/FAST_LIO
+	url = https://github.com/Ericsii/FAST_LIO.git
+[submodule "src/navigation/livox_ros_driver2"]
+	path = src/navigation/livox_ros_driver2
+	url = https://github.com/Livox-SDK/livox_ros_driver2.git
+[submodule "src/navigation/octomap_mapping"]
+	path = src/navigation/octomap_mapping
+	url = https://github.com/OctoMap/octomap_mapping.git
+[submodule "src/navigation/pcd2pgm"]
+	path = src/navigation/pcd2pgm
+	url = https://gitee.com/LihanChen2004/pcd2pgm.git
