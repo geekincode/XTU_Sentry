@@ -78,7 +78,7 @@ RMSerialDriver::RMSerialDriver(const rclcpp::NodeOptions & options)
     throw ex;
   }
 
-  // timer_ = this->create_wall_timer(8ms, std::bind(&RMSerialDriver::on_timer, this));
+
   cmd_vel_sub_ = this->create_subscription<geometry_msgs::msg::Twist>(
       "/cmd_vel", rclcpp::SensorDataQoS(),
       std::bind(&RMSerialDriver::cmd_vel_callback, this, std::placeholders::_1));

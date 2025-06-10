@@ -105,8 +105,6 @@ private:
 
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr record_controller_pub_;
 
-  // rclcpp::TimerBase::SharedPtr timer_;
-  // void on_timer(void);
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_sub_;
   void cmd_vel_callback(const geometry_msgs::msg::Twist::SharedPtr cmd_vel_msg);
   SendPacket packet;
