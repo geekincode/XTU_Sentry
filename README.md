@@ -38,3 +38,10 @@ struct SendPacket
   uint16_t checksum = 0;
 } __attribute__((packed));
 ```
+
+
+```
+ros2 launch sentry_startup sentry_startup.launch.py
+
+
+```

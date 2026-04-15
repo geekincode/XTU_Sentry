@@ -33,6 +33,7 @@
 #include "buff_interfaces/msg/time_info.hpp"
 #include "auto_aim_interfaces/msg/fired_info.hpp"
 #include "auto_aim_interfaces/msg/serial_packet.hpp"
+#include "auto_aim_interfaces/msg/serial_data.hpp"
 
 
 namespace rm_serial_driver
@@ -87,6 +88,7 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr current_yaw_pub_;
 
   rclcpp::Publisher<auto_aim_interfaces::msg::SerialPacket>::SharedPtr serial_packet_pub_;
+  rclcpp::Publisher<auto_aim_interfaces::msg::SerialData>::SharedPtr serial_data_pub_;
 
   double timestamp_offset_ = 0;
   std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;

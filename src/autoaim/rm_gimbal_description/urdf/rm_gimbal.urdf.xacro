@@ -6,7 +6,7 @@
   <xacro:arg name="xyz" default="0.10 0 0.05" />
   <xacro:arg name="rpy" default="0 0 0" />
 
-  <link name="map" />
+  <link name="base_link" />
 
   <link name="gimbal_link" />
 

@@ -20,6 +20,9 @@ struct ReceivePacket
   uint8_t is_play : 1;      // 1-play 0-stop
   bool change_target : 1;   // 1-change target
   uint8_t reserved : 2;
+
+  uint8_t pose_state;
+
   float roll;
   float pitch;
   float yaw;

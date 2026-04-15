@@ -9,7 +9,6 @@ if(ROS_EDITION STREQUAL "ROS1")
   #---------------------------------------------------------------------------------------
   # Start livox_ros_driver2 project
   #---------------------------------------------------------------------------------------
-  message(STATUS "Loading version.cmake")
   include(cmake/version.cmake)
   project(livox_ros_driver2 VERSION ${LIVOX_ROS_DRIVER2_VERSION} LANGUAGES CXX)
   message(STATUS "livox_ros_driver2 version: ${LIVOX_ROS_DRIVER2_VERSION}")
@@ -208,7 +207,6 @@ else(ROS_EDITION STREQUAL "ROS2")
     add_compile_options(-Wall -Wextra -Wpedantic -Wno-unused-parameter)
   endif()
 
-  message(STATUS "CMAKE_MESSAGE_LOG_LEVEL = ${CMAKE_MESSAGE_LOG_LEVEL}")
   # Printf version info
   include(cmake/version.cmake)
   project(${PROJECT_NAME} VERSION ${LIVOX_ROS_DRIVER2_VERSION} LANGUAGES CXX)
@@ -227,6 +225,7 @@ else(ROS_EDITION STREQUAL "ROS2")
   ament_auto_find_build_dependencies()
   find_package(PCL REQUIRED)
   find_package(std_msgs REQUIRED)
+  find_package(sensor_msgs REQUIRED)
   find_package(builtin_interfaces REQUIRED)
   find_package(rosidl_default_generators REQUIRED)
 
@@ -266,6 +265,7 @@ else(ROS_EDITION STREQUAL "ROS2")
     src/driver_node.cpp
     src/lds.cpp
     src/lds_lidar.cpp
+    src/custom_msg_to_pointcloud2.cpp
 
     src/comm/comm.cpp
     src/comm/ldq.cpp
@@ -317,6 +317,11 @@ else(ROS_EDITION STREQUAL "ROS2")
   rclcpp_components_register_node(${PROJECT_NAME}
     PLUGIN "livox_ros::DriverNode"
     EXECUTABLE ${PROJECT_NAME}_node
+  )
+
+  rclcpp_components_register_node(${PROJECT_NAME}
+    PLUGIN "livox_ros::CustomMsgToPointCloud2Node"
+    EXECUTABLE custom_msg_to_pointcloud2_node
   )
 
   if(BUILD_TESTING)

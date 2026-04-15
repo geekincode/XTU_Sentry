@@ -19,23 +19,23 @@ def generate_launch_description():
         ),
         
         # 静态TF：map -> base_link
-        # Node(
-        #     package='tf2_ros',
-        #     executable='static_transform_publisher',
-        #     name='world_to_base_link',
-        #     arguments=[
-        #         '--x', '0.0',
-        #         '--y', '0.0',
-        #         '--z', '0.0',
-        #         '--qx', '0.0',
-        #         '--qy', '0.0',
-        #         '--qz', '0.0',
-        #         '--qw', '1.0',
-        #         '--frame-id', 'odom',
-        #         '--child-frame-id', 'base_link'
-        #     ],
-        #     output='screen'
-        # ),
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='world_to_base_link',
+            arguments=[
+                '--x', '0.0',
+                '--y', '0.0',
+                '--z', '0.0',
+                '--qx', '0.0',
+                '--qy', '0.0',
+                '--qz', '0.0',
+                '--qw', '1.0',
+                '--frame-id', 'map',
+                '--child-frame-id', 'base_link'
+            ],
+            output='screen'
+        ),
 
         # RVIZ2节点
         Node(

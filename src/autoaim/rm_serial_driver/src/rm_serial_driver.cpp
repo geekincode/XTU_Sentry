@@ -23,6 +23,7 @@
 #include "rm_serial_driver/packet.hpp"
 #include "rm_serial_driver/rm_serial_driver.hpp"
 #include "auto_aim_interfaces/msg/serial_packet.hpp"
+#include "auto_aim_interfaces/msg/serial_data.hpp"
 
 using namespace std::chrono_literals;
 
@@ -52,6 +53,7 @@ RMSerialDriver::RMSerialDriver(const rclcpp::NodeOptions & options)
 
   // 串口数据包发布
   serial_packet_pub_ = this->create_publisher<auto_aim_interfaces::msg::SerialPacket>("serial_packet", 10);
+  serial_data_pub_ = this->create_publisher<auto_aim_interfaces::msg::SerialData>("/serial_driver/packet", 10);
 
   // Create Subscriber
   fired_info_sub_ = this->create_subscription<auto_aim_interfaces::msg::FiredInfo>("/fired_info",10,std::bind(&RMSerialDriver::sendArmorData, this, std::placeholders::_1));
@@ -255,6 +257,28 @@ void RMSerialDriver::pubSerialPacket(ReceivePacket & packet)
 
   RCLCPP_INFO(this->get_logger(), "发布packet消息");
   serial_packet_pub_->publish(*msg);
+
+  // Publish SerialData message for /serial_driver/packet topic
+  auto serial_data_msg = std::make_shared<auto_aim_interfaces::msg::SerialData>();
+  serial_data_msg->header.stamp = this->now();
+  serial_data_msg->header.frame_id = "serial_driver";
+  serial_data_msg->direction = "receive";
+
+  serial_data_msg->recv_header = packet.header;
+  serial_data_msg->detect_color = packet.detect_color;
+  serial_data_msg->task_mode = packet.task_mode;
+  serial_data_msg->recv_reset_tracker = packet.reset_tracker;
+  serial_data_msg->recv_is_play = packet.is_play;
+  serial_data_msg->recv_change_target = packet.change_target;
+  serial_data_msg->recv_reserved = packet.reserved;
+  serial_data_msg->recv_roll = packet.roll;
+  serial_data_msg->recv_pitch = packet.pitch;
+  serial_data_msg->recv_yaw = packet.yaw;
+  serial_data_msg->recv_robot_hp = packet.robot_HP;
+  serial_data_msg->recv_game_time = packet.game_time;
+  serial_data_msg->recv_checksum = packet.checksum;
+
+  serial_data_pub_->publish(*serial_data_msg);
 }
 void RMSerialDriver::sendArmorData(const auto_aim_interfaces::msg::FiredInfo::ConstSharedPtr msg)
 {
@@ -342,6 +366,24 @@ void RMSerialDriver::sendPacket(SendPacket *packet)
     crc16::Append_CRC16_Check_Sum(reinterpret_cast<uint8_t *>(packet), sizeof(*packet));
     std::vector<uint8_t> data = toVector(*packet);
     serial_driver_->port()->send(data);
+
+    // Publish SerialData message for /serial_driver/packet topic
+    auto serial_data_msg = std::make_shared<auto_aim_interfaces::msg::SerialData>();
+    serial_data_msg->header.stamp = this->now();
+    serial_data_msg->header.frame_id = "serial_driver";
+    serial_data_msg->direction = "send";
+
+    serial_data_msg->send_header = packet->header;
+    serial_data_msg->send_state = packet->state;
+    serial_data_msg->send_fire_flag = packet->fire_flag;
+    serial_data_msg->send_pitch = packet->pitch;
+    serial_data_msg->send_yaw = packet->yaw;
+    serial_data_msg->send_nav_x = packet->nav_x;
+    serial_data_msg->send_nav_y = packet->nav_y;
+    serial_data_msg->send_nav_z = packet->nav_z;
+    serial_data_msg->send_checksum = packet->checksum;
+
+    serial_data_pub_->publish(*serial_data_msg);
 }
 
 void RMSerialDriver::getParams()
