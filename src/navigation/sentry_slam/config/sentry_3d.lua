@@ -17,7 +17,7 @@ options = {
 
   -- 坐标系设置（需与URDF一致）
   map_frame = "map",
-  tracking_frame = "imu_link", -- 推荐：使用IMU坐标系作为跟踪基准
+  tracking_frame = "base_link", -- 不依赖URDF中的imu_link，避免TF断链
   published_frame = "base_link",
   odom_frame = "odom",
   provide_odom_frame = false,

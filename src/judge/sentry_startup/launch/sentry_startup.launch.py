@@ -29,14 +29,10 @@ def generate_launch_description():
         }.items(),
     )
 
-    # 创建 SLAM 启动描述
-    slam_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(slam_pkg_share, 'launch', 'cartographer.launch.py')
-        )
-    )
-
     # 创建静态变换节点
+    # Fast-LIO 发布 map -> odom (动态)
+    # 静态 TF 发布 odom -> base_link (固定)
+    # 这样完成了完整的 TF 链：map -> odom -> base_link
     static_transform_node = launch_ros.actions.Node(
         package='tf2_ros',
         executable='static_transform_publisher',
@@ -78,7 +74,6 @@ def generate_launch_description():
         launch.actions.TimerAction(period=5.0, actions=[launch_octomap_server2]),
         launch.actions.TimerAction(period=5.0, actions=[launch_autoaim]),
         launch.actions.TimerAction(period=6.0, actions=[navigation_launch]),
-        launch.actions.TimerAction(period=7.0, actions=[slam_launch]),
     ])
 
     # 创建 RViz 节点
