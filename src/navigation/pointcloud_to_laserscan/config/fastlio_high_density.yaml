@@ -1,0 +1,33 @@
+/**:
+  ros__parameters:
+    # High-density laser scan configuration (for sparse data environments)
+    # Use this when /scan data is very sparse or insufficient for SLAM
+    #
+    # Optimizations:
+    # - Very fine angular resolution (0.5° -> 0.25°)
+    # - Large height range to capture more points
+    # - Small minimum range to include near objects
+    # - Extended maximum range
+
+    # Height range: maximized to capture points at all levels
+    min_height: -5.0
+    max_height: 5.0
+
+    # Angle configuration: use full 360 deg and finer bins for denser /scan
+    angle_min: -3.14159
+    angle_max: 3.14159
+    angle_increment: 0.044  # 0.1 degree
+
+    # Range configuration: extended for maximum coverage
+    scan_time: 0.033
+    range_min: 0.1   # Very close range
+    range_max: 40.0  # Extended range
+
+    # Frame settings
+    # cloud_in is in map/world frame for FAST-LIO; keep same frame to avoid TF filter drops
+    target_frame: map
+    transform_tolerance: 0.2
+
+    # Infinity handling
+    use_inf: true
+    inf_epsilon: 1.0

@@ -15,9 +15,6 @@ def generate_launch_description():
     default_config_path = os.path.join(package_path, 'config')
     default_rviz_config_path = os.path.join(
         package_path, 'rviz', 'fastlio.rviz')
-    
-    octomap_rviz_config_path = os.path.join(
-        package_path, 'rviz', 'octomap.rviz')
 
     use_sim_time = LaunchConfiguration('use_sim_time')
     config_path = LaunchConfiguration('config_path')
@@ -42,7 +39,7 @@ def generate_launch_description():
         description='Use RViz to monitor results'
     )
     declare_rviz_config_path_cmd = DeclareLaunchArgument(
-        'rviz_cfg', default_value=octomap_rviz_config_path,
+        'rviz_cfg', default_value=default_rviz_config_path,
         description='RViz config file path'
     )
 

@@ -75,7 +75,11 @@ PointCloudToLaserScanNode::PointCloudToLaserScanNode(const rclcpp::NodeOptions &
   inf_epsilon_ = this->declare_parameter("inf_epsilon", 1.0);
   use_inf_ = this->declare_parameter("use_inf", true);
 
-  pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", rclcpp::SensorDataQoS());
+  // Use RELIABLE QoS for LaserScan to ensure compatibility with Cartographer and RViz
+  auto qos = rclcpp::QoS(rclcpp::KeepLast(10))
+    .reliability(rclcpp::ReliabilityPolicy::Reliable)
+    .durability(rclcpp::DurabilityPolicy::Volatile);
+  pub_ = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", qos);
 
   using std::placeholders::_1;
   // if pointcloud target frame specified, we need to filter by transform availability

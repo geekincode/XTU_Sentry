@@ -7,7 +7,7 @@
         filter_size_map: 0.5
         cube_side_length: 1000.0
         runtime_pos_log_enable: false
-        # map_file_path: "/home/rm/sentry_nav_V3.0/src/FAST_LIO/PCD/test1.pcd"
+        map_file_path: "./test.pcd"
 
         common:
             lid_topic:  "/livox/lidar"
@@ -35,23 +35,22 @@
             # extrinsic_R: [ 1., 0., 0.,
             #                 0., 1., 0.,
             #                 0., 0., 1.]
-            # extrinsic_T: [-0.026710,  0.004045,  0.065602]
-            # extrinsic_R: [0.999653,  0.001606,  0.026298,
-            #                 -0.001718,  0.999990,  0.004240,
-            #                 -0.026291, -0.004284,  0.999645]
-            extrinsic_T: [0.217524, 0.057651, -0.159375]
-            extrinsic_R: [ -0.988852, -0.035029, 0.144722,
-                        0.010566, 0.952978, 0.302855,
-                        -0.148526, 0.301008, -0.941984 ]
+
+            extrinsic_T: [-0.103713, -0.109729, -0.055605]
+            extrinsic_R: [ -0.999331, 0.030643, 0.019945,
+                        0.028951, 0.996358, -0.080206,
+                        -0.022330, -0.079575, -0.996579 ]
+
+
         publish:
             path_en: true                # true: publish Path
             effect_map_en: false         # true: publish Effects
             map_en: true                 # true: publish Map cloud
             scan_publish_en:  true       # false: close all the point cloud output
-            dense_publish_en: true      # false: low down the points number in a global-frame point clouds scan.
-            scan_bodyframe_pub_en: true  # true: output the point cloud scans in IMU-body-frame
+            dense_publish_en: false      # false: low down the points number in a global-frame point clouds scan.
+            scan_bodyframe_pub_en: false  # true: output the point cloud scans in IMU-body-frame
 
         pcd_save:
-            pcd_save_en: true
+            pcd_save_en: false
             interval: -1                 # how many LiDAR frames saved in each pcd file; 
                                         # -1 : all frames will be saved in ONE pcd file, may lead to memory crash when having too much frames.
